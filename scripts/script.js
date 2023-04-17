@@ -135,3 +135,32 @@ CLEAR_BOARD_BTN.setAttribute(
   'Ícone para apagar todo o quadro de pixels'
 );
 CLEAR_BOARD_BTN.setAttribute('title', 'Apaga todos os pixels');
+
+// Get the color selected by the user
+let colorSelected = COLOR_PICKER.value;
+
+// Save the selected color to local storage
+const saveColorToLocalStorage = () => {
+  localStorage.setItem('colorSelected', JSON.stringify(colorSelected));
+};
+
+// Load the previously selected color from local storage when the page is reloaded
+const loadColorToLocalStorage = () => {
+  const localStorageColor = JSON.parse(localStorage.getItem('colorSelected'));
+  COLOR_PICKER.value = localStorageColor;
+  colorSelected = localStorageColor;
+};
+
+loadColorToLocalStorage();
+
+// Select a color to paint
+const selectColor = () => {
+  colorSelected = COLOR_PICKER.value;
+  saveColorToLocalStorage();
+};
+
+// Update the selected color when the user finishes using the color picker
+COLOR_PICKER.addEventListener('mouseleave', selectColor);
+
+// Get all of the pixels
+const PIXELS = document.querySelectorAll('.pixel');
