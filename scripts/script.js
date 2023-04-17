@@ -244,3 +244,12 @@ const clearBoard = () => {
 
 // Add an event listener to the clear board button
 CLEAR_BOARD_BTN.addEventListener('click', clearBoard);
+
+// Erases a pixel by making its background color transparent again
+const erasePixel = (event) => {
+  const currentColor = event.target.style.backgroundColor;
+  colorSelected = currentColor;
+};
+
+// Add an event listener to the eraser button
+ERASER_PIXEL.addEventListener('click', erasePixel);
