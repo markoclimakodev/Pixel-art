@@ -206,3 +206,29 @@ const paint = (event) => {
 for (let index = 0; index < PIXELS.length; index += 1) {
   PIXELS[index].addEventListener('click', paint);
 }
+
+// Save the background color of the board to local storage
+const saveBoardBackgroundColorToLocalStorage = () => {
+  const saveBoardBgColor = PIXEL_FRAME_CONTAINER.style.backgroundColor;
+  localStorage.setItem('board-background', JSON.stringify(saveBoardBgColor));
+};
+
+// Load the previously saved background color of the board from local storage when the page is reloaded
+
+const loadBoardBackgroundColor = () => {
+  const savedBoardBgColor = JSON.parse(
+    localStorage.getItem('board-background')
+  );
+  PIXEL_FRAME_CONTAINER.style.backgroundColor = savedBoardBgColor;
+};
+
+loadBoardBackgroundColor();
+
+// Fill the entire canvas with the selected color
+const paintAllBoard = () => {
+  PIXEL_FRAME_CONTAINER.style.backgroundColor = colorSelected;
+  saveBoardBackgroundColorToLocalStorage();
+};
+
+// Add a click event listener to the paint bucket button
+PAINT_BUCKET.addEventListener('click', paintAllBoard);
