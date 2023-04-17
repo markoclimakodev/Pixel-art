@@ -108,7 +108,7 @@ COLOR_PICKER.setAttribute('type', 'color');
 // Create the paint bucket button and add it to the buttons container
 createElements('img', 'paint-bucket', BUTTONS_CONTAINER);
 const PAINT_BUCKET = document.querySelector('#paint-bucket');
-PAINT_BUCKET.src = '../assets/icons/light/paint-bucket.svg';
+PAINT_BUCKET.src = './assets/icons/light/paint-bucket.svg';
 PAINT_BUCKET.setAttribute(
   'alt',
   'Ícone para pintar todo o quadro de uma única cor'
