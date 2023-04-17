@@ -52,3 +52,50 @@ createElements('img', 'github', GITHUB_LINK);
 const GITHUB_BTN = document.querySelector('#github');
 GITHUB_BTN.src = '../assets/icons/light/github.svg';
 GITHUB_BTN.setAttribute('alt', 'Ícone Github');
+
+// Create the buttons container and add it to the body
+createElements('section', 'buttons-container', BODY);
+const BUTTONS_CONTAINER = document.querySelector('#buttons-container');
+
+// Create the pixel frame container and add it to the body
+createElements('section', 'pixel-frame-container', BODY);
+const PIXEL_FRAME_CONTAINER = document.querySelector('#pixel-frame-container');
+
+// Get the screen size to determine the size of the pixel frame container
+let screensize = '';
+const getScreenSize = () => {
+  let width = window.screen.width;
+  screensize = width;
+  return screensize;
+};
+
+getScreenSize();
+
+// Function to create the pixels within the pixel frame container
+const createPixels = (numberOfPixels) => {
+  for (let pixels = 0; pixels < numberOfPixels; pixels += 1) {
+    createElements('div', 'pixel', PIXEL_FRAME_CONTAINER);
+  }
+};
+
+const handleScreenSize = () => {
+  if (screensize === 1600) {
+    createPixels(2088);
+    PIXEL_FRAME_CONTAINER.style.width = '90rem';
+    PIXEL_FRAME_CONTAINER.style.height = '36.26rem';
+    // BUTTONS_CONTAINER.style.width = '90rem';
+    return;
+  } else if (screensize === 1280) {
+    createPixels(1568);
+    PIXEL_FRAME_CONTAINER.style.width = '70rem';
+    PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
+    // BUTTONS_CONTAINER.style.width = '70rem';
+    return;
+  }
+  createPixels(2736);
+  PIXEL_FRAME_CONTAINER.style.width = '90rem';
+  PIXEL_FRAME_CONTAINER.style.height = '47.40rem';
+  // BUTTONS_CONTAINER.style.width = '90rem';
+};
+
+handleScreenSize();
