@@ -99,3 +99,39 @@ const handleScreenSize = () => {
 };
 
 handleScreenSize();
+
+// Create the color picker button and add it to the buttons container
+createElements('input', 'color-picker', BUTTONS_CONTAINER);
+const COLOR_PICKER = document.querySelector('#color-picker');
+COLOR_PICKER.setAttribute('type', 'color');
+
+// Create the paint bucket button and add it to the buttons container
+createElements('img', 'paint-bucket', BUTTONS_CONTAINER);
+const PAINT_BUCKET = document.querySelector('#paint-bucket');
+PAINT_BUCKET.src = '../assets/icons/light/paint-bucket.svg';
+PAINT_BUCKET.setAttribute(
+  'alt',
+  'Ícone para pintar todo o quadro de uma única cor'
+);
+PAINT_BUCKET.setAttribute(
+  'title',
+  'Preenche o fundo do quadro com a cor selecionada'
+);
+
+// Create the erase pixel button and add it to the buttons container
+createElements('img', 'eraser-pixel', BUTTONS_CONTAINER);
+const ERASER_PIXEL = document.querySelector('#eraser-pixel');
+ERASER_PIXEL.src = '../assets/icons/light/eraser.svg';
+ERASER_PIXEL.setAttribute('alt', 'Ícone para apagar pixel');
+ERASER_PIXEL.setAttribute('title', 'Apaga o pixel clicado');
+
+// Create the clear board button and add it to the buttons container
+
+createElements('img', 'clear-board', BUTTONS_CONTAINER);
+const CLEAR_BOARD_BTN = document.querySelector('#clear-board');
+CLEAR_BOARD_BTN.src = '../assets/icons/light/clear-board.svg';
+CLEAR_BOARD_BTN.setAttribute(
+  'alt',
+  'Ícone para apagar todo o quadro de pixels'
+);
+CLEAR_BOARD_BTN.setAttribute('title', 'Apaga todos os pixels');
