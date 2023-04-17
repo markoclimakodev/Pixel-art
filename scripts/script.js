@@ -164,3 +164,45 @@ COLOR_PICKER.addEventListener('mouseleave', selectColor);
 
 // Get all of the pixels
 const PIXELS = document.querySelectorAll('.pixel');
+
+// Set the background color of each pixel to transparent
+for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
+  PIXELS[pixelIndex].style.backgroundColor = 'transparent';
+}
+
+// Save the drawing to local storage
+const saveDrawingToLocalStorage = () => {
+  const localStoragePixels = [];
+  for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
+    localStoragePixels.push(PIXELS[pixelIndex].style.backgroundColor);
+    localStorage.setItem('paintedPixels', JSON.stringify(localStoragePixels));
+  }
+};
+
+// load drawing from localStorage when page reload or close the page
+const loadDrawingFromLocalStorage = () => {
+  const localStoragePixels = JSON.parse(localStorage.getItem('paintedPixels'));
+  if (localStoragePixels) {
+    for (
+      let pixelIndex = 0;
+      pixelIndex < localStoragePixels.length;
+      pixelIndex += 1
+    ) {
+      PIXELS[pixelIndex].style.backgroundColor = localStoragePixels[pixelIndex];
+    }
+  }
+};
+
+loadDrawingFromLocalStorage();
+
+// Paint a pixel with the selected color
+const paint = (event) => {
+  const currentColor = colorSelected;
+  event.target.style.backgroundColor = currentColor;
+  saveDrawingToLocalStorage();
+};
+
+// Add an event listener to each pixel to paint it
+for (let index = 0; index < PIXELS.length; index += 1) {
+  PIXELS[index].addEventListener('click', paint);
+}
