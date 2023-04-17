@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+body {
+  background-color: #b9f7ba;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 4rem;
+  box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 4.5rem;
+}
+
+.logo {
+  width: 160px;
+}
+
+.social-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social-container a:hover {
+  transform: scale(1.1);
+  transition: transform 350ms ease;
+}
