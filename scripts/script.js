@@ -232,3 +232,15 @@ const paintAllBoard = () => {
 
 // Add a click event listener to the paint bucket button
 PAINT_BUCKET.addEventListener('click', paintAllBoard);
+
+// Clear all pixels on the board
+
+const clearBoard = () => {
+  for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
+    PIXELS[pixelIndex].style.backgroundColor = 'transparent';
+  }
+  saveDrawingToLocalStorage();
+};
+
+// Add an event listener to the clear board button
+CLEAR_BOARD_BTN.addEventListener('click', clearBoard);
