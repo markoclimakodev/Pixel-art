@@ -170,7 +170,7 @@ let colorSelected = COLOR_PICKER.value;
 const saveColorToLocalStorage = () => {
   localStorage.setItem('colorSelected', JSON.stringify(colorSelected));
 };
-
+saveColorToLocalStorage()
 // Load the previously selected color from local storage when the page is reloaded
 const loadColorToLocalStorage = () => {
   const localStorageColor = JSON.parse(localStorage.getItem('colorSelected'));
