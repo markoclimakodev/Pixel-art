@@ -108,6 +108,12 @@ const handleScreenSize = () => {
     PIXEL_FRAME_CONTAINER.style.height = '29.90rem';
     return;
   }
+  else if (screensize === 360) {
+    createPixels(368);
+    PIXEL_FRAME_CONTAINER.style.width = '20rem';
+    PIXEL_FRAME_CONTAINER.style.height = '28.7rem';
+    return;
+  }
   createPixels(2736);
   PIXEL_FRAME_CONTAINER.style.width = '90rem';
   PIXEL_FRAME_CONTAINER.style.height = '47.40rem';
