@@ -90,7 +90,7 @@ const handleScreenSize = () => {
     PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
     return;
   }
-  else if (screensize === 1536) {
+  else if (screensize === 1536 || screensize === 1440) {
     createPixels(2048);
     PIXEL_FRAME_CONTAINER.style.width = '80rem';
     PIXEL_FRAME_CONTAINER.style.height = '39.90rem';
