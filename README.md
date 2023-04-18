@@ -40,7 +40,6 @@ To use the application, follow the link -> [Trybixel](https://trybixel.vercel.ap
 ## **Known Bugs:**
 #### **Current Work in Progress**
 1. If you use the eraser tool and then try to paint again, the paint color will not apply until you select a new color from the color picker. 
-
 <br>
 
 ## **Feature in Development:**
