@@ -9,8 +9,13 @@
 }
 
 body {
-  background: rgb(0,223,255);
-  background: linear-gradient(90deg, rgba(0,223,255,1) 0%, rgba(182,0,255,1) 51%, rgba(88,255,113,1) 100%);
+  background: rgb(0, 223, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 223, 255, 1) 0%,
+    rgba(182, 0, 255, 1) 51%,
+    rgba(88, 255, 113, 1) 100%
+  );
 }
 
 .page-header {
@@ -101,4 +106,15 @@ input[type='color'] {
 
 .paint-bucket {
   width: 2rem;
+}
+
+.btn-download {
+  height: 2em;
+  padding: 0.2rem 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  border-radius: 0.2rem;
+  background-color: #3e4854;
+  border: none;
+  color: #ffffff;
 }
