@@ -89,32 +89,26 @@ const handleScreenSize = () => {
     PIXEL_FRAME_CONTAINER.style.width = '70rem';
     PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
     return;
-  }
-  else if (screensize === 1536 || screensize === 1440) {
+  } else if (screensize === 1536 || screensize === 1440) {
     createPixels(2048);
     PIXEL_FRAME_CONTAINER.style.width = '80rem';
     PIXEL_FRAME_CONTAINER.style.height = '39.90rem';
     return;
-  }
-  else if (screensize === 1366) {
+  } else if (screensize === 1366) {
     createPixels(1792);
     PIXEL_FRAME_CONTAINER.style.width = '80rem';
     PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
     return;
-  }
-  else if (screensize === 375) {
+  } else if (screensize === 375) {
     createPixels(384);
     PIXEL_FRAME_CONTAINER.style.width = '20rem';
     PIXEL_FRAME_CONTAINER.style.height = '29.90rem';
     return;
-  }
-
-  else if (screensize === 360) {
+  } else if (screensize === 360) {
     createPixels(368);
     PIXEL_FRAME_CONTAINER.style.width = '20rem';
     PIXEL_FRAME_CONTAINER.style.height = '28.7rem';
-  }
-  else if (screensize === 412) {
+  } else if (screensize === 412) {
     createPixels(560);
     PIXEL_FRAME_CONTAINER.style.width = '20rem';
     PIXEL_FRAME_CONTAINER.style.height = '43.72rem';
@@ -153,7 +147,6 @@ ERASER_PIXEL.setAttribute('alt', 'Ícone para apagar pixel');
 ERASER_PIXEL.setAttribute('title', 'Apaga o pixel clicado');
 
 // Create the clear board button and add it to the buttons container
-
 createElements('img', 'clear-board', BUTTONS_CONTAINER);
 const CLEAR_BOARD_BTN = document.querySelector('#clear-board');
 CLEAR_BOARD_BTN.src = '../assets/icons/light/clear-board.svg';
@@ -170,7 +163,7 @@ let colorSelected = COLOR_PICKER.value;
 const saveColorToLocalStorage = () => {
   localStorage.setItem('colorSelected', JSON.stringify(colorSelected));
 };
-saveColorToLocalStorage()
+saveColorToLocalStorage();
 // Load the previously selected color from local storage when the page is reloaded
 const loadColorToLocalStorage = () => {
   const localStorageColor = JSON.parse(localStorage.getItem('colorSelected'));
@@ -241,7 +234,6 @@ const saveBoardBackgroundColorToLocalStorage = () => {
 };
 
 // Load the previously saved background color of the board from local storage when the page is reloaded
-
 const loadBoardBackgroundColor = () => {
   const savedBoardBgColor = JSON.parse(
     localStorage.getItem('board-background')
@@ -261,7 +253,6 @@ const paintAllBoard = () => {
 PAINT_BUCKET.addEventListener('click', paintAllBoard);
 
 // Clear all pixels on the board
-
 const clearBoard = () => {
   for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
     PIXELS[pixelIndex].style.backgroundColor = 'transparent';
@@ -280,3 +271,49 @@ const erasePixel = (event) => {
 
 // Add an event listener to the eraser button
 ERASER_PIXEL.addEventListener('click', erasePixel);
+
+// Function to download the pixel frame container as an image.png
+const createCanvasFromPixels = () => {
+  // Create a new canvas element
+  const CANVAS = document.createElement('canvas');
+  CANVAS.width = PIXEL_FRAME_CONTAINER.offsetWidth;
+  CANVAS.height = PIXEL_FRAME_CONTAINER.offsetHeight;
+  const CTX = CANVAS.getContext('2d');
+  CTX.fillStyle = PIXEL_FRAME_CONTAINER.style.backgroundColor;
+  CTX.fillRect(0, 0, CANVAS.width, CANVAS.height);
+  const PIXES = document.querySelectorAll('.pixel');
+  // iterate through each pixel and draw it into the canvas
+  PIXES.forEach((pixel) => {
+    // Get the x and y position of the pixel relative to the pixel frame container
+    const X = pixel.offsetLeft - PIXEL_FRAME_CONTAINER.offsetLeft;
+    const Y = pixel.offsetTop - PIXEL_FRAME_CONTAINER.offsetTop;
+    const COLOR = pixel.style.backgroundColor;
+    const BORDER = pixel.style.border;
+    CTX.fillStyle = COLOR;
+    CTX.fillRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
+    CTX.strokeStyle = BORDER;
+    CTX.strokeRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
+  });
+
+  return CANVAS;
+};
+
+const DRAWING = createCanvasFromPixels();
+
+// Creates a download link for the canvas created from the pixel art
+const downloadPixelDrawing = () => {
+  const DATA_URL = DRAWING.toDataURL('image/png');
+  const LINK = document.createElement('a');
+  LINK.download = 'drawing.png';
+  LINK.href = DATA_URL;
+  LINK.click();
+};
+
+// Create download button
+createElements('button', 'btn-download', BUTTONS_CONTAINER);
+const BTN_DOWNLOAD = document.querySelector('#btn-download');
+BTN_DOWNLOAD.id = 'export-drawing';
+BTN_DOWNLOAD.textContent = 'Download';
+BUTTONS_CONTAINER.appendChild(BTN_DOWNLOAD);
+
+BTN_DOWNLOAD.addEventListener('click', downloadPixelDrawing);
