@@ -273,47 +273,49 @@ const erasePixel = (event) => {
 ERASER_PIXEL.addEventListener('click', erasePixel);
 
 // Function to download the pixel frame container as an image.png
-const createCanvasFromPixels = () => {
-  // Create a new canvas element
-  const CANVAS = document.createElement('canvas');
-  CANVAS.width = PIXEL_FRAME_CONTAINER.offsetWidth;
-  CANVAS.height = PIXEL_FRAME_CONTAINER.offsetHeight;
-  const CTX = CANVAS.getContext('2d');
-  CTX.fillStyle = PIXEL_FRAME_CONTAINER.style.backgroundColor;
-  CTX.fillRect(0, 0, CANVAS.width, CANVAS.height);
-  const PIXES = document.querySelectorAll('.pixel');
-  // iterate through each pixel and draw it into the canvas
-  PIXES.forEach((pixel) => {
-    // Get the x and y position of the pixel relative to the pixel frame container
-    const X = pixel.offsetLeft - PIXEL_FRAME_CONTAINER.offsetLeft;
-    const Y = pixel.offsetTop - PIXEL_FRAME_CONTAINER.offsetTop;
-    const COLOR = pixel.style.backgroundColor;
-    const BORDER = pixel.style.border;
-    CTX.fillStyle = COLOR;
-    CTX.fillRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
-    CTX.strokeStyle = BORDER;
-    CTX.strokeRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
-  });
+// const createCanvasFromPixels = () => {
+//   // Create a new canvas element
+//   const CANVAS = document.createElement('canvas');
+//   CANVAS.width = PIXEL_FRAME_CONTAINER.offsetWidth;
+//   CANVAS.height = PIXEL_FRAME_CONTAINER.offsetHeight;
+//   const CTX = CANVAS.getContext('2d');
+//   CTX.fillStyle = PIXEL_FRAME_CONTAINER.style.backgroundColor;
+//   CTX.fillRect(0, 0, CANVAS.width, CANVAS.height);
+//   const PIXES = document.querySelectorAll('.pixel');
+//   // iterate through each pixel and draw it into the canvas
+//   PIXES.forEach((pixel) => {
+//     // Get the x and y position of the pixel relative to the pixel frame container
+//     const X = pixel.offsetLeft - PIXEL_FRAME_CONTAINER.offsetLeft;
+//     const Y = pixel.offsetTop - PIXEL_FRAME_CONTAINER.offsetTop;
+//     const COLOR = pixel.style.backgroundColor;
+//     const BORDER = pixel.style.border;
+//     CTX.fillStyle = COLOR;
+//     CTX.fillRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
+//     CTX.strokeStyle = BORDER;
+//     CTX.strokeRect(X, Y, pixel.offsetWidth, pixel.offsetHeight);
+//   });
 
-  return CANVAS;
-};
+//   return CANVAS;
+// };
 
-const DRAWING = createCanvasFromPixels();
+// const DRAWING = createCanvasFromPixels();
 
-// Creates a download link for the canvas created from the pixel art
-const downloadPixelDrawing = () => {
-  const DATA_URL = DRAWING.toDataURL('image/png');
-  const LINK = document.createElement('a');
-  LINK.download = 'drawing.png';
-  LINK.href = DATA_URL;
-  LINK.click();
-};
+// // Creates a download link for the canvas created from the pixel art
+// const downloadPixelDrawing = () => {
+//   const DATA_URL = DRAWING.toDataURL('image/png');
+//   const LINK = document.createElement('a');
+//   LINK.download = 'drawing.png';
+//   LINK.href = DATA_URL;
+//   LINK.click();
+// };
 
-// Create download button
-createElements('button', 'btn-download', BUTTONS_CONTAINER);
-const BTN_DOWNLOAD = document.querySelector('#btn-download');
-BTN_DOWNLOAD.id = 'export-drawing';
-BTN_DOWNLOAD.textContent = 'Download';
-BUTTONS_CONTAINER.appendChild(BTN_DOWNLOAD);
+// // Create download button
+// createElements('button', 'btn-download', BUTTONS_CONTAINER);
+// const BTN_DOWNLOAD = document.querySelector('#btn-download');
+// BTN_DOWNLOAD.id = 'export-drawing';
+// BTN_DOWNLOAD.textContent = 'Download';
+// BTN_DOWNLOAD.setAttribute('title','funcionliladade de download ainda em teste se encontrar algum erro ao utilizar deixe seu feedback');
 
-BTN_DOWNLOAD.addEventListener('click', downloadPixelDrawing);
+// BUTTONS_CONTAINER.appendChild(BTN_DOWNLOAD);
+
+// BTN_DOWNLOAD.addEventListener('click', downloadPixelDrawing);
