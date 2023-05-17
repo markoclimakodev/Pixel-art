@@ -1,133 +1,111 @@
 // Get the body element from the document
 const BODY = document.querySelector('body');
 
+// Const to static values
+const ASSETS_PATH = '../assets';
+const ICONS_PATH = `${ASSETS_PATH}/icons/light`;
+const LOGO_PATH = `${ASSETS_PATH}/logo-light.svg`;
+
 // Function to create an element with a given tag, id, and parent element
-const createElements = (element, elementSelector, parentElement) => {
-  const ELEMENT = document.createElement(element);
-  ELEMENT.id = elementSelector;
-  ELEMENT.classList.add(elementSelector);
-  parentElement.appendChild(ELEMENT);
+const createElementWithIdClass = (element, elementSelector, parentElement) => {
+  const newElement = document.createElement(element);
+  newElement.id = elementSelector;
+  newElement.classList.add(elementSelector);
+  parentElement.appendChild(newElement);
 };
 
 // Create the header and add it to the body
-createElements('header', 'page-header', BODY);
-const HEADER = document.querySelector('#page-header');
+const createHeader = () => {
+  createElementWithIdClass('header', 'page-header', BODY);
+  const HEADER = document.querySelector('#page-header');
+  
+  createElementWithIdClass('img', 'logo', HEADER);
+  const LOGO = document.querySelector('#logo');
+  LOGO.src =  LOGO_PATH;
+  LOGO.setAttribute('alt', 'logo página tribixel');
 
-// Create the logo image and add it to the header
-createElements('img', 'logo', HEADER);
-const LOGO = document.querySelector('#logo');
-LOGO.src = '../assets/logo-light.svg';
-LOGO.setAttribute('alt', 'logo página tribixel');
+  createElementWithIdClass('h1', 'title', HEADER);
+  const TITLE = document.querySelector('#title');
+  TITLE.innerText = 'Arte com pixels';
+  TITLE.style.color = 'transparent';
 
-// Create heading
-createElements('h1', 'title', HEADER);
-const TITLE = document.querySelector('#title');
-TITLE.innerText = 'Arte com pixels';
-TITLE.style.color = 'transparent';
+  createElementWithIdClass('section', 'social-container', HEADER);
+  const SOCIAL_CONTAINER = document.querySelector('#social-container');
 
-// Create a section container to social media buttons
-createElements('section', 'social-container', HEADER);
-const SOCIAL_CONTAINER = document.querySelector('#social-container');
+  createElementWithIdClass('a', 'linkedin-link', SOCIAL_CONTAINER);
+  const LINKEDIN_LINK = document.querySelector('#linkedin-link');
+  LINKEDIN_LINK.setAttribute('href', 'https://www.linkedin.com/in/markoclimako/');
+  LINKEDIN_LINK.setAttribute('target', '_blank');
 
-// Create an anchor for Linkedin button
-createElements('a', 'linkedin-link', SOCIAL_CONTAINER);
-const LINKEDIN_LINK = document.querySelector('#linkedin-link');
-LINKEDIN_LINK.setAttribute('href', 'https://www.linkedin.com/in/markoclimako/');
-LINKEDIN_LINK.setAttribute('target', '_blank');
+  createElementWithIdClass('img', 'linkedin', LINKEDIN_LINK);
+  const LINKEDIN_BTN = document.querySelector('#linkedin');
+  LINKEDIN_BTN.src = `${ICONS_PATH}/linkedin.svg`;
+  LINKEDIN_BTN.setAttribute('alt', 'Ícone Linkedin');
 
-// Create Linkedin button
-createElements('img', 'linkedin', LINKEDIN_LINK);
-const LINKEDIN_BTN = document.querySelector('#linkedin');
-LINKEDIN_BTN.src = '../assets/icons/light/linkedin.svg';
-LINKEDIN_BTN.setAttribute('alt', 'Ícone Linkedin');
+  createElementWithIdClass('a', 'github-link', SOCIAL_CONTAINER);
+  const GITHUB_LINK = document.querySelector('#github-link');
+  GITHUB_LINK.setAttribute('href', 'https://github.com/markoclimakodev');
+  GITHUB_LINK.setAttribute('target', '_blank');
 
-// Create an anchor for GitHub button
-createElements('a', 'github-link', SOCIAL_CONTAINER);
-const GITHUB_LINK = document.querySelector('#github-link');
-GITHUB_LINK.setAttribute('href', 'https://github.com/markoclimakodev');
-GITHUB_LINK.setAttribute('target', '_blank');
-
-// Create Github button
-createElements('img', 'github', GITHUB_LINK);
-const GITHUB_BTN = document.querySelector('#github');
-GITHUB_BTN.src = '../assets/icons/light/github.svg';
-GITHUB_BTN.setAttribute('alt', 'Ícone Github');
+  createElementWithIdClass('img', 'github', GITHUB_LINK);
+  const GITHUB_BTN = document.querySelector('#github');
+  GITHUB_BTN.src = `${ICONS_PATH}/github.svg`;
+  GITHUB_BTN.setAttribute('alt', 'Ícone Github');
+}
 
 // Create the buttons container and add it to the body
-createElements('section', 'buttons-container', BODY);
+createElementWithIdClass('section', 'buttons-container', BODY);
 const BUTTONS_CONTAINER = document.querySelector('#buttons-container');
 
 // Create the pixel frame container and add it to the body
-createElements('section', 'pixel-frame-container', BODY);
+createElementWithIdClass('section', 'pixel-frame-container', BODY);
 const PIXEL_FRAME_CONTAINER = document.querySelector('#pixel-frame-container');
 
 // Get the screen size to determine the size of the pixel frame container
 let screensize = '';
-const getScreenSize = () => {
-  let width = window.screen.width;
-  screensize = width;
-  return screensize;
-};
+const getScreenSize = () => window.screen.width;
 
 getScreenSize();
 
 // Function to create the pixels within the pixel frame container
 const createPixels = (numberOfPixels) => {
-  for (let pixels = 0; pixels < numberOfPixels; pixels += 1) {
-    createElements('div', 'pixel', PIXEL_FRAME_CONTAINER);
-  }
-};
+  Array.from({ length: numberOfPixels }).forEach(() => {
+  createElementWithIdClass('div', 'pixel', PIXEL_FRAME_CONTAINER);
+  });
+  };
 
 const handleScreenSize = () => {
-  if (screensize === 1600) {
-    createPixels(2088);
-    PIXEL_FRAME_CONTAINER.style.width = '90rem';
-    PIXEL_FRAME_CONTAINER.style.height = '36.26rem';
-    return;
-  } else if (screensize === 1280) {
-    createPixels(1568);
-    PIXEL_FRAME_CONTAINER.style.width = '70rem';
-    PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
-    return;
-  } else if (screensize === 1536 || screensize === 1440) {
-    createPixels(2048);
-    PIXEL_FRAME_CONTAINER.style.width = '80rem';
-    PIXEL_FRAME_CONTAINER.style.height = '39.90rem';
-    return;
-  } else if (screensize === 1366) {
-    createPixels(1792);
-    PIXEL_FRAME_CONTAINER.style.width = '80rem';
-    PIXEL_FRAME_CONTAINER.style.height = '34.90rem';
-    return;
-  } else if (screensize === 375) {
-    createPixels(384);
-    PIXEL_FRAME_CONTAINER.style.width = '20rem';
-    PIXEL_FRAME_CONTAINER.style.height = '29.90rem';
-    return;
-  } else if (screensize === 360) {
-    createPixels(368);
-    PIXEL_FRAME_CONTAINER.style.width = '20rem';
-    PIXEL_FRAME_CONTAINER.style.height = '28.7rem';
-  } else if (screensize === 412) {
-    createPixels(560);
-    PIXEL_FRAME_CONTAINER.style.width = '20rem';
-    PIXEL_FRAME_CONTAINER.style.height = '43.72rem';
-    return;
-  }
-  createPixels(2736);
-  PIXEL_FRAME_CONTAINER.style.width = '90rem';
-  PIXEL_FRAME_CONTAINER.style.height = '47.40rem';
+  const screensize = window.screen.width;
+
+const screenSizeData = {
+    1600: { numberOfPixels: 2088, width: '90rem', height: '36.26rem' },
+    1280: { numberOfPixels: 1568, width: '70rem', height: '34.90rem' },
+    1536: { numberOfPixels: 2048, width: '80rem', height: '39.90rem' },
+    1440: { numberOfPixels: 2048, width: '80rem', height: '39.90rem' },
+    1366: { numberOfPixels: 1792, width: '80rem', height: '34.90rem' },
+    375: { numberOfPixels: 384, width: '20rem', height: '29.90rem' },
+    360: { numberOfPixels: 368, width: '20rem', height: '28.7rem' },
+    412: { numberOfPixels: 560, width: '20rem', height: '43.72rem' },
+    default: { numberOfPixels: 2736, width: '90rem', height: '47.40rem' },
+  };
+
+  const { numberOfPixels, width, height } =
+    screenSizeData[screensize] || screenSizeData.default;
+
+  createPixels(numberOfPixels);
+  PIXEL_FRAME_CONTAINER.style.width = width;
+  PIXEL_FRAME_CONTAINER.style.height = height;
 };
 
 handleScreenSize();
 
 // Create the color picker button and add it to the buttons container
-createElements('input', 'color-picker', BUTTONS_CONTAINER);
+createElementWithIdClass('input', 'color-picker', BUTTONS_CONTAINER);
 const COLOR_PICKER = document.querySelector('#color-picker');
 COLOR_PICKER.setAttribute('type', 'color');
 
 // Create the paint bucket button and add it to the buttons container
-createElements('img', 'paint-bucket', BUTTONS_CONTAINER);
+createElementWithIdClass('img', 'paint-bucket', BUTTONS_CONTAINER);
 const PAINT_BUCKET = document.querySelector('#paint-bucket');
 PAINT_BUCKET.src = './assets/icons/light/paint-bucket.svg';
 PAINT_BUCKET.setAttribute(
@@ -140,14 +118,14 @@ PAINT_BUCKET.setAttribute(
 );
 
 // Create the erase pixel button and add it to the buttons container
-createElements('img', 'eraser-pixel', BUTTONS_CONTAINER);
+createElementWithIdClass('img', 'eraser-pixel', BUTTONS_CONTAINER);
 const ERASER_PIXEL = document.querySelector('#eraser-pixel');
 ERASER_PIXEL.src = '../assets/icons/light/eraser.svg';
 ERASER_PIXEL.setAttribute('alt', 'Ícone para apagar pixel');
 ERASER_PIXEL.setAttribute('title', 'Apaga o pixel clicado');
 
 // Create the clear board button and add it to the buttons container
-createElements('img', 'clear-board', BUTTONS_CONTAINER);
+createElementWithIdClass('img', 'clear-board', BUTTONS_CONTAINER);
 const CLEAR_BOARD_BTN = document.querySelector('#clear-board');
 CLEAR_BOARD_BTN.src = '../assets/icons/light/clear-board.svg';
 CLEAR_BOARD_BTN.setAttribute(
@@ -186,46 +164,43 @@ COLOR_PICKER.addEventListener('mouseleave', selectColor);
 const PIXELS = document.querySelectorAll('.pixel');
 
 // Set the background color of each pixel to transparent
-for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
-  PIXELS[pixelIndex].style.backgroundColor = 'transparent';
-}
+PIXELS.forEach((pixel) => {
+  pixel.style.backgroundColor = 'transparent';
+});
 
 // Save the drawing to local storage
 const saveDrawingToLocalStorage = () => {
   const localStoragePixels = [];
-  for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
-    localStoragePixels.push(PIXELS[pixelIndex].style.backgroundColor);
-    localStorage.setItem('paintedPixels', JSON.stringify(localStoragePixels));
-  }
+  PIXELS.forEach((pixel) => {
+    localStoragePixels.push(pixel.style.backgroundColor);
+  });
+  
+  localStorage.setItem('paintedPixels', JSON.stringify(localStoragePixels));
 };
 
 // load drawing from localStorage when page reload or close the page
 const loadDrawingFromLocalStorage = () => {
   const localStoragePixels = JSON.parse(localStorage.getItem('paintedPixels'));
   if (localStoragePixels) {
-    for (
-      let pixelIndex = 0;
-      pixelIndex < localStoragePixels.length;
-      pixelIndex += 1
-    ) {
-      PIXELS[pixelIndex].style.backgroundColor = localStoragePixels[pixelIndex];
-    }
+    localStoragePixels.forEach((color, pixelIndex) => {
+      PIXELS[pixelIndex].style.backgroundColor = color;
+    });
   }
 };
 
 loadDrawingFromLocalStorage();
 
 // Paint a pixel with the selected color
-const paint = (event) => {
+const paint = ({target}) => {
   const currentColor = colorSelected;
-  event.target.style.backgroundColor = currentColor;
+  target.style.backgroundColor = currentColor;
   saveDrawingToLocalStorage();
 };
 
 // Add an event listener to each pixel to paint it
-for (let index = 0; index < PIXELS.length; index += 1) {
-  PIXELS[index].addEventListener('click', paint);
-}
+PIXELS.forEach(pixel => {
+  pixel.addEventListener('click', paint);
+});
 
 // Save the background color of the board to local storage
 const saveBoardBackgroundColorToLocalStorage = () => {
@@ -254,9 +229,10 @@ PAINT_BUCKET.addEventListener('click', paintAllBoard);
 
 // Clear all pixels on the board
 const clearBoard = () => {
-  for (let pixelIndex = 0; pixelIndex < PIXELS.length; pixelIndex += 1) {
-    PIXELS[pixelIndex].style.backgroundColor = 'transparent';
-  }
+  PIXELS.forEach((pixel) => {
+    pixel.style.backgroundColor = 'transparent';
+  });
+
   saveDrawingToLocalStorage();
 };
 
@@ -264,8 +240,8 @@ const clearBoard = () => {
 CLEAR_BOARD_BTN.addEventListener('click', clearBoard);
 
 // Erases a pixel by making its background color transparent again
-const erasePixel = (event) => {
-  const currentColor = event.target.style.backgroundColor;
+const erasePixel = ({target}) => {
+  const currentColor = target.style.backgroundColor;
   colorSelected = currentColor;
 };
 
