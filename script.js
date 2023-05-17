@@ -53,6 +53,8 @@ const createHeader = () => {
   GITHUB_BTN.setAttribute('alt', 'Ícone Github');
 }
 
+createHeader();
+
 // Create the buttons container and add it to the body
 createElementWithIdClass('section', 'buttons-container', BODY);
 const BUTTONS_CONTAINER = document.querySelector('#buttons-container');
@@ -115,6 +117,19 @@ PAINT_BUCKET.setAttribute(
 PAINT_BUCKET.setAttribute(
   'title',
   'Preenche o fundo do quadro com a cor selecionada'
+);
+
+//
+createElementWithIdClass('img', 'pencil', BUTTONS_CONTAINER);
+const PENCIL = document.querySelector('#pencil');
+PENCIL.src = './assets/icons/light/pencil.svg';
+PENCIL.setAttribute(
+  'alt',
+  'Ícone para pintar'
+);
+PENCIL.setAttribute(
+  'title',
+  'Pinta o pixel clicado'
 );
 
 // Create the erase pixel button and add it to the buttons container
@@ -190,17 +205,6 @@ const loadDrawingFromLocalStorage = () => {
 
 loadDrawingFromLocalStorage();
 
-// Paint a pixel with the selected color
-const paint = ({target}) => {
-  const currentColor = colorSelected;
-  target.style.backgroundColor = currentColor;
-  saveDrawingToLocalStorage();
-};
-
-// Add an event listener to each pixel to paint it
-PIXELS.forEach(pixel => {
-  pixel.addEventListener('click', paint);
-});
 
 // Save the background color of the board to local storage
 const saveBoardBackgroundColorToLocalStorage = () => {
@@ -239,11 +243,70 @@ const clearBoard = () => {
 // Add an event listener to the clear board button
 CLEAR_BOARD_BTN.addEventListener('click', clearBoard);
 
-// Erases a pixel by making its background color transparent again
-const erasePixel = ({target}) => {
-  const currentColor = target.style.backgroundColor;
-  colorSelected = currentColor;
+// Variable to control whether the erase function is activated
+let eraseMode = false;
+
+// Variable to control whether the paint function is activated
+let paintMode = false;
+
+// Function to enable/disable erase mode
+const toggleEraseMode = () => {
+  eraseMode = !eraseMode;
+  paintMode = false;
+
+// Update the buttons CSS class to indicate the current state of the erase mode
+  ERASER_PIXEL.classList.toggle('active', eraseMode);
+  PENCIL.classList.remove('active');
 };
 
-// Add an event listener to the eraser button
-ERASER_PIXEL.addEventListener('click', erasePixel);
+// Function to enable/disable paint mode
+const togglePaintMode = () => {
+  paintMode = !paintMode;
+  eraseMode = false;
+
+// Update the buttons CSS class to indicate the current state of the paint mode
+  PENCIL.classList.toggle('active', paintMode);
+  ERASER_PIXEL.classList.remove('active');
+};
+
+// Add click events to erase and pencil buttons
+ERASER_PIXEL.addEventListener('click', toggleEraseMode);
+PENCIL.addEventListener('click', togglePaintMode);
+
+// Function to check if there are painted pixels
+const hasColoredPixels = () => {
+  let hasColored = false;
+
+  PIXELS.forEach((pixel) => {
+    if (pixel.style.backgroundColor !== 'transparent') {
+      hasColored = true;
+    }
+  });
+
+  return hasColored;
+};
+
+// Function to erase a pixel
+const erasePixel = (pixel) => {
+  pixel.style.backgroundColor = 'transparent';
+};
+
+// Function to paint a pixel
+const paintPixel = (pixel) => {
+  pixel.style.backgroundColor = colorSelected;
+};
+
+// Add a click event to the pixels
+PIXELS.forEach((pixel) => {
+  pixel.addEventListener('click', () => {
+    if (eraseMode) {
+      erasePixel(pixel);
+      if (!hasColoredPixels()) {
+        colorSelected = COLOR_PICKER.value;
+        previousColorSelected = null;
+      }
+    } else if (paintMode) {
+      paintPixel(pixel);
+    }
+  });
+});

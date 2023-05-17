@@ -12,9 +12,9 @@ body {
   background: rgb(0, 223, 255);
   background: linear-gradient(
     90deg,
-    rgba(0, 223, 255, 1) 0%,
-    rgba(182, 0, 255, 1) 51%,
-    rgba(88, 255, 113, 1) 100%
+    rgb(0, 215, 248) 0%,
+    rgb(183, 0, 255) 51%,
+    rgb(0, 255, 115) 100%
   );
 }
 
@@ -70,7 +70,7 @@ body {
   margin: 1.5rem auto;
   background-color: #ffffff;
   box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
 }
 
@@ -81,7 +81,7 @@ input[type='color'] {
   background: none;
   border: 0;
   cursor: pointer;
-  height: 2em;
+  height: 2.5em;
   padding: 0;
   width: 2rem;
   border-radius: 0.125rem;
@@ -89,7 +89,8 @@ input[type='color'] {
 
 .buttons-container img {
   cursor: pointer;
-  transition: transform 350ms ease;
+  border: 1px dashed transparent;
+  transition: all 350ms linear;
 }
 
 .buttons-container img:hover {
@@ -117,4 +118,9 @@ input[type='color'] {
   background-color: #3e4854;
   border: none;
   color: #ffffff;
+}
+
+img.active {
+  border: 1px dashed #3e4854;
+  border-radius: 4px;
 }
