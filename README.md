@@ -37,11 +37,6 @@ To use the application, follow the link -> [Trybixel](https://trybixel.vercel.ap
 
 <br>
 
-## **Known Bugs:**
-#### **Current Work in Progress**
-1. If you use the eraser tool and then try to paint again, the paint color will not apply until you select a new color from the color picker. 
-<br>
-
 ## **Feature in Development:**
 1. **Download Drawing**: I'm currently working on adding a feature that allows you to download your pixel drawing as an image file. Once this feature is implemented, you will be able to save and share your creations.
 
