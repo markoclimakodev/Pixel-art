@@ -38,12 +38,6 @@ Nota: Se você usar a ferramenta apagador, precisará selecionar uma nova cor an
 
 <br>
 
-## **Bugs conhecidos:**
-#### **Trabalho em Andamento**
-1. Se você usar a ferramenta apagador e depois tentar pintar novamente, a cor da pintura não será aplicada até que você selecione uma nova cor no seletor de cores.
-
-<br>
-
 ## **Recurso em Desenvolvimento::**
 1. **Download da Arte**: Atualmente, estou trabalhando em um recurso que permite baixar sua arte pixel como um arquivo de imagem. Depois que este recurso for implementado, você poderá salvar e compartilhar suas criações.
 
