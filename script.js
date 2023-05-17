@@ -157,6 +157,7 @@ const saveColorToLocalStorage = () => {
   localStorage.setItem('colorSelected', JSON.stringify(colorSelected));
 };
 
+saveColorToLocalStorage()
 // Load the previously selected color from local storage when the page is reloaded
 const loadColorToLocalStorage = () => {
   const localStorageColor = JSON.parse(localStorage.getItem('colorSelected'));
@@ -192,7 +193,6 @@ const saveDrawingToLocalStorage = () => {
   
   localStorage.setItem('paintedPixels', JSON.stringify(localStoragePixels));
 };
-
 // load drawing from localStorage when page reload or close the page
 const loadDrawingFromLocalStorage = () => {
   const localStoragePixels = JSON.parse(localStorage.getItem('paintedPixels'));
@@ -211,7 +211,6 @@ const saveBoardBackgroundColorToLocalStorage = () => {
   const saveBoardBgColor = PIXEL_FRAME_CONTAINER.style.backgroundColor;
   localStorage.setItem('board-background', JSON.stringify(saveBoardBgColor));
 };
-
 // Load the previously saved background color of the board from local storage when the page is reloaded
 const loadBoardBackgroundColor = () => {
   const savedBoardBgColor = JSON.parse(
@@ -305,8 +304,11 @@ PIXELS.forEach((pixel) => {
         colorSelected = COLOR_PICKER.value;
         previousColorSelected = null;
       }
+
     } else if (paintMode) {
       paintPixel(pixel);
+      
     }
+    saveDrawingToLocalStorage()
   });
 });
