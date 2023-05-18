@@ -107,47 +107,53 @@ const COLOR_PICKER = document.querySelector('#color-picker');
 COLOR_PICKER.setAttribute('type', 'color');
 
 // Create the paint bucket button and add it to the buttons container
-createElementWithIdClass('img', 'paint-bucket', BUTTONS_CONTAINER);
-const PAINT_BUCKET = document.querySelector('#paint-bucket');
-PAINT_BUCKET.src = './assets/icons/light/paint-bucket.svg';
-PAINT_BUCKET.setAttribute(
+createElementWithIdClass('img', 'paint-bucket-tool', BUTTONS_CONTAINER);
+const paintBucketTool = document.querySelector('#paint-bucket-tool');
+paintBucketTool.src = './assets/icons/light/paint-bucket.svg';
+paintBucketTool.setAttribute(
   'alt',
   'Ícone para pintar todo o quadro de uma única cor'
 );
-PAINT_BUCKET.setAttribute(
+paintBucketTool.setAttribute(
   'title',
   'Preenche o fundo do quadro com a cor selecionada'
 );
 
-//
-createElementWithIdClass('img', 'pencil', BUTTONS_CONTAINER);
-const PENCIL = document.querySelector('#pencil');
-PENCIL.src = './assets/icons/light/pencil.svg';
-PENCIL.setAttribute(
+createElementWithIdClass('img', 'paint-tool', BUTTONS_CONTAINER);
+const pencilTool = document.querySelector('#paint-tool');
+pencilTool.src = './assets/icons/light/paint-tool.svg';
+pencilTool.setAttribute(
   'alt',
   'Ícone para pintar'
 );
-PENCIL.setAttribute(
+pencilTool.setAttribute(
   'title',
   'Pinta o pixel clicado'
 );
 
+//
+createElementWithIdClass('img','rotate-tool', BUTTONS_CONTAINER);
+const rotateTool = document.querySelector('#rotate-tool');
+rotateTool.src = '../assets/icons/light/rotate-tool.svg';
+rotateTool.setAttribute('alt','Ícone para girar o pixel ')
+rotateTool.setAttribute('title','Gira o pixel clicado em 45º')
+
 // Create the erase pixel button and add it to the buttons container
-createElementWithIdClass('img', 'eraser-pixel', BUTTONS_CONTAINER);
-const ERASER_PIXEL = document.querySelector('#eraser-pixel');
-ERASER_PIXEL.src = '../assets/icons/light/eraser.svg';
-ERASER_PIXEL.setAttribute('alt', 'Ícone para apagar pixel');
-ERASER_PIXEL.setAttribute('title', 'Apaga o pixel clicado');
+createElementWithIdClass('img', 'eraser-tool', BUTTONS_CONTAINER);
+const eraserTool = document.querySelector('#eraser-tool');
+eraserTool.src = '../assets/icons/light/eraser-tool.svg';
+eraserTool.setAttribute('alt', 'Ícone para apagar pixel');
+eraserTool.setAttribute('title', 'Apaga o pixel clicado');
 
 // Create the clear board button and add it to the buttons container
-createElementWithIdClass('img', 'clear-board', BUTTONS_CONTAINER);
-const CLEAR_BOARD_BTN = document.querySelector('#clear-board');
-CLEAR_BOARD_BTN.src = '../assets/icons/light/clear-board.svg';
-CLEAR_BOARD_BTN.setAttribute(
+createElementWithIdClass('img', 'clear-board-tool', BUTTONS_CONTAINER);
+const clearBoardTool = document.querySelector('#clear-board-tool');
+clearBoardTool.src = '../assets/icons/light/clear-board-tool.svg';
+clearBoardTool.setAttribute(
   'alt',
   'Ícone para apagar todo o quadro de pixels'
 );
-CLEAR_BOARD_BTN.setAttribute('title', 'Apaga todos os pixels');
+clearBoardTool.setAttribute('title', 'Apaga todos os pixels');
 
 // Get the color selected by the user
 let colorSelected = COLOR_PICKER.value;
@@ -157,15 +163,17 @@ const saveColorToLocalStorage = () => {
   localStorage.setItem('colorSelected', JSON.stringify(colorSelected));
 };
 
-saveColorToLocalStorage()
 // Load the previously selected color from local storage when the page is reloaded
 const loadColorToLocalStorage = () => {
   const localStorageColor = JSON.parse(localStorage.getItem('colorSelected'));
-  COLOR_PICKER.value = localStorageColor;
-  colorSelected = localStorageColor;
+  if(localStorageColor){
+    COLOR_PICKER.value = localStorageColor;
+    colorSelected = localStorageColor;
+  }
 };
 
 loadColorToLocalStorage();
+saveColorToLocalStorage()
 
 // Select a color to paint
 const selectColor = () => {
@@ -205,7 +213,6 @@ const loadDrawingFromLocalStorage = () => {
 
 loadDrawingFromLocalStorage();
 
-
 // Save the background color of the board to local storage
 const saveBoardBackgroundColorToLocalStorage = () => {
   const saveBoardBgColor = PIXEL_FRAME_CONTAINER.style.backgroundColor;
@@ -228,7 +235,7 @@ const paintAllBoard = () => {
 };
 
 // Add a click event listener to the paint bucket button
-PAINT_BUCKET.addEventListener('click', paintAllBoard);
+paintBucketTool.addEventListener('click', paintAllBoard);
 
 // Clear all pixels on the board
 const clearBoard = () => {
@@ -240,37 +247,53 @@ const clearBoard = () => {
 };
 
 // Add an event listener to the clear board button
-CLEAR_BOARD_BTN.addEventListener('click', clearBoard);
+clearBoardTool.addEventListener('click', clearBoard);
 
-// Variable to control whether the erase function is activated
+// Variables to control whether a tools is activated
 let eraseMode = false;
-
-// Variable to control whether the paint function is activated
 let paintMode = false;
+let rotateMode = false;
 
 // Function to enable/disable erase mode
 const toggleEraseMode = () => {
   eraseMode = !eraseMode;
   paintMode = false;
+  rotateMode = false
 
 // Update the buttons CSS class to indicate the current state of the erase mode
-  ERASER_PIXEL.classList.toggle('active', eraseMode);
-  PENCIL.classList.remove('active');
+  eraserTool.classList.toggle('active', eraseMode);
+  pencilTool.classList.remove('active');
+  rotateTool.classList.remove('active');
 };
 
 // Function to enable/disable paint mode
 const togglePaintMode = () => {
   paintMode = !paintMode;
   eraseMode = false;
+  rotateMode = false
 
 // Update the buttons CSS class to indicate the current state of the paint mode
-  PENCIL.classList.toggle('active', paintMode);
-  ERASER_PIXEL.classList.remove('active');
+  pencilTool.classList.toggle('active', paintMode);
+  eraserTool.classList.remove('active');
+  rotateTool.classList.remove('active');
+};
+
+// Function to enable/disable rotate mode
+const toggleRotateMode = () => {
+  rotateMode = !rotateMode
+  paintMode = false;
+  eraseMode = false;
+
+// Update the buttons CSS class to indicate the current state of the paint mode
+  rotateTool.classList.toggle('active', rotateMode);
+  eraserTool.classList.remove('active');
+  pencilTool.classList.remove('active');
 };
 
 // Add click events to erase and pencil buttons
-ERASER_PIXEL.addEventListener('click', toggleEraseMode);
-PENCIL.addEventListener('click', togglePaintMode);
+eraserTool.addEventListener('click', toggleEraseMode);
+pencilTool.addEventListener('click', togglePaintMode);
+rotateTool.addEventListener('click', toggleRotateMode)
 
 // Function to check if there are painted pixels
 const hasColoredPixels = () => {
@@ -295,6 +318,11 @@ const paintPixel = (pixel) => {
   pixel.style.backgroundColor = colorSelected;
 };
 
+// Function to rotate a pixel 45º
+const rotatePixel = (pixel) => {
+  pixel.classList.toggle('rotate45deg')
+};
+
 // Add a click event to the pixels
 PIXELS.forEach((pixel) => {
   pixel.addEventListener('click', () => {
@@ -305,9 +333,10 @@ PIXELS.forEach((pixel) => {
         previousColorSelected = null;
       }
 
-    } else if (paintMode) {
+    } if (paintMode) {
       paintPixel(pixel);
-      
+    } if(rotateMode) {
+      rotatePixel(pixel)
     }
     saveDrawingToLocalStorage()
   });
